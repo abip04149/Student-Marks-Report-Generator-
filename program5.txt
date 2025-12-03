@@ -1,0 +1,91 @@
+using System;
+
+internal class MarksAnalysisApp
+{
+    static void Main()
+    {
+      
+        Console.Write("Enter number of students: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        int[] marks = new int[n];
+
+        Console.WriteLine("Enter the marks:");
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write($"Mark {i + 1}: ");
+            marks[i] = Convert.ToInt32(Console.ReadLine());
+        }
+        int[] backupMarks = new int[n];
+        Array.Copy(marks, backupMarks, n);
+
+        Console.WriteLine("\nMarks in original order:");
+        foreach (int m in marks)
+            Console.Write(m + " ");
+
+        int[] sortedMarks = new int[n];
+        Array.Copy(marks, sortedMarks, n);
+        Array.Sort(sortedMarks);
+
+        Console.WriteLine("\n\nMarks in sorted order:");
+        foreach (int m in sortedMarks)
+            Console.Write(m + " ");
+
+        int total = 0;
+        int highest = marks[0];
+        int lowest = marks[0];
+
+        foreach (int m in marks)
+        {
+            total += m;
+            if (m > highest) highest = m;
+            if (m < lowest) lowest = m;
+        }
+
+        Console.WriteLine("\n\nTotal Marks = " + total);
+        Console.WriteLine("Highest Mark = " + highest);
+        Console.WriteLine("Lowest Mark = " + lowest);
+
+        Console.Write("\nEnter a mark to search: ");
+        int searchMark = Convert.ToInt32(Console.ReadLine());
+
+        bool found = false;
+        foreach (int m in marks)
+        {
+            if (m == searchMark)
+            {
+                found = true;
+                break;
+            }
+        }
+
+        if (found)
+            Console.WriteLine("Mark FOUND in the list.");
+        else
+            Console.WriteLine("Mark NOT FOUND.");
+
+        Console.WriteLine("\nEnter marks for another set to compare:");
+        int[] compareMarks = new int[n];
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write($"Mark {i + 1}: ");
+            compareMarks[i] = Convert.ToInt32(Console.ReadLine());
+        }
+
+        bool identical = true;
+        for (int i = 0; i < n; i++)
+        {
+            if (marks[i] != compareMarks[i])
+            {
+                identical = false;
+                break;
+            }
+        }
+
+        if (identical)
+            Console.WriteLine("\nBoth sets of marks are IDENTICAL.");
+        else
+            Console.WriteLine("\nBoth sets of marks are NOT IDENTICAL.");
+    }
+}
